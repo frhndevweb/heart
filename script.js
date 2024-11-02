@@ -1,22 +1,23 @@
 window.requestAnimationFrame =
     window.__requestAnimationFrame ||
-        window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        (function () {
-            return function (callback, element) {
-                var lastTime = element.__lastTime;
-                if (lastTime === undefined) {
-                    lastTime = 0;
-                }
-                var currTime = Date.now();
-                var timeToCall = Math.max(1, 33 - (currTime - lastTime));
-                window.setTimeout(callback, timeToCall);
-                element.__lastTime = currTime + timeToCall;
-            };
-        })();
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    (function () {
+        return function (callback, element) {
+            var lastTime = element.__lastTime;
+            if (lastTime === undefined) {
+                lastTime = 0;
+            }
+            var currTime = Date.now();
+            var timeToCall = Math.max(1, 33 - (currTime - lastTime));
+            window.setTimeout(callback, timeToCall);
+            element.__lastTime = currTime + timeToCall;
+        };
+    })();
+
 window.isDevice = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(((navigator.userAgent || navigator.vendor || window.opera)).toLowerCase()));
 var loaded = false;
 var init = function () {
@@ -33,7 +34,6 @@ var init = function () {
     ctx.fillRect(0, 0, width, height);
 
     var heartPosition = function (rad) {
-        //return [Math.sin(rad), Math.cos(rad)];
         return [Math.pow(Math.sin(rad), 3), -(15 * Math.cos(rad) - 5 * Math.cos(2 * rad) - 2 * Math.cos(3 * rad) - Math.cos(4 * rad))];
     };
     var scaleAndTranslate = function (pos, sx, sy, dx, dy) {
@@ -77,7 +77,7 @@ var init = function () {
             q: ~~(rand() * heartPointsCount),
             D: 2 * (i % 2) - 1,
             force: 0.2 * rand() + 0.7,
-            f: "hsla(0," + ~~(40 * rand() + 60) + "%," + ~~(60 * rand() + 20) + "%,.3)",
+            f: "hsla(0," + ~~(60 * rand() + 80) + "%," + ~~(70 * rand() + 40) + "%,.5)",
             trace: []
         };
         for (var k = 0; k < traceCount; k++) e[i].trace[k] = {x: x, y: y};
@@ -133,8 +133,6 @@ var init = function () {
                 ctx.fillRect(u.trace[k].x, u.trace[k].y, 1, 1);
             }
         }
-        //ctx.fillStyle = "rgba(255,255,255,1)";
-        //for (i = u.trace.length; i--;) ctx.fillRect(targetPoints[i][0], targetPoints[i][1], 2, 2);
 
         window.requestAnimationFrame(loop, canvas);
     };
